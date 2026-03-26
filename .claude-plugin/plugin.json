@@ -1,0 +1,15 @@
+{
+  "name": "memoriant-llm-gateway-skill",
+  "version": "1.0.0",
+  "description": "Compliance-first LLM gateway: policy-as-code enforcement (YAML/JSON rules), tamper-evident hash-chain audit trails, PII detection and redaction, rate limiting, token budget enforcement, and compliance evidence export for SOC2/HIPAA auditors. 1 skill + 1 specialized agent.",
+  "author": {
+    "name": "Nathan Maine",
+    "url": "https://github.com/NathanMaine"
+  },
+  "homepage": "https://github.com/NathanMaine/governed-llm-gateway",
+  "repository": "https://github.com/NathanMaine/memoriant-llm-gateway-skill",
+  "license": "MIT",
+  "keywords": ["compliance", "llm-gateway", "policy-as-code", "audit-trail", "pii-detection", "hipaa", "soc2", "rate-limiting", "tamper-evident"],
+  "skills": "./skills/",
+  "agents": "./agents/"
+}

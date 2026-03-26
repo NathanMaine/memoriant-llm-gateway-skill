@@ -1,0 +1,11 @@
+{
+  "name": "memoriant-llm-gateway-skill",
+  "description": "Compliance-first LLM gateway: policy-as-code enforcement, tamper-evident hash-chain audit trails, PII detection and redaction, rate limiting, token budget enforcement, and compliance evidence export for SOC2/HIPAA auditors.",
+  "version": "1.0.0",
+  "skills": [
+    {
+      "name": "llm-gateway",
+      "path": "skills/llm-gateway/SKILL.md"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+# Default policy configuration for the Governed LLM Gateway
+#
+# Policy rules are evaluated in order. The first DENY or REQUIRE_APPROVAL
+# match determines the outcome. If no rules trigger, the request is ALLOWED.
+#
+# Each rule has:
+#   name:        Unique identifier for the rule
+#   description: Human-readable explanation (appears in audit trail)
+#   action:      DENY | REQUIRE_APPROVAL | ALLOW
+#   conditions:  Criteria that must ALL be met for the rule to trigger
+#   enabled:     true/false toggle (default: true)
+
+version: "1.0"
+
+rules:
+  # --- PII Protection ---
+  - name: block-pii-in-prompts
+    description: >
+      Deny requests containing personally identifiable information (PII)
+      such as Social Security numbers, credit card numbers, email addresses,
+      or US phone numbers. Protects against accidental data leakage to
+      LLM providers.
+    action: DENY
+    conditions:
+      pii_detected: true
+    enabled: true
+
+  # --- PHI Data Classification Gating ---
+  - name: require-approval-for-phi
+    description: >
+      Require explicit approval before processing requests classified as
+      containing Protected Health Information (PHI). Supports HIPAA
+      164.312(a)(1) access control requirements.
+    action: REQUIRE_APPROVAL
+    conditions:
+      data_classification:
+        - PHI
+        - phi
+    enabled: true
+
+  # --- PCI Data Classification Gating ---
+  - name: require-approval-for-pci
+    description: >
+      Require explicit approval before processing requests containing
+      Payment Card Industry (PCI) data. Supports PCI-DSS compliance.
+    action: REQUIRE_APPROVAL
+    conditions:
+      data_classification:
+        - PCI
+        - pci
+    enabled: true
+
+  # --- EU Data Residency ---
+  - name: eu-data-residency-routing
+    description: >
+      Require approval for EU-jurisdiction requests to ensure they are
+      routed to EU-resident LLM providers per GDPR data residency
+      requirements.
+    action: REQUIRE_APPROVAL
+    conditions:
+      jurisdiction:
+        - EU
+        - eu
+    enabled: true
+
+  # --- Content Safety ---
+  - name: block-harmful-keywords
+    description: >
+      Deny requests containing keywords associated with harmful content
+      generation. This is a basic content safety measure.
+    action: DENY
+    conditions:
+      blocked_keywords:
+        - "ignore previous instructions"
+        - "bypass safety"
+        - "jailbreak"
+    enabled: true
+
+  # --- Prompt Size Limits ---
+  - name: flag-oversized-prompts
+    description: >
+      Require approval for prompts exceeding 50,000 characters to prevent
+      cost overruns and potential abuse via prompt injection at scale.
+    action: REQUIRE_APPROVAL
+    conditions:
+      max_prompt_length: 50000
+    enabled: true

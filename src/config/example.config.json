@@ -1,0 +1,49 @@
+{
+  "providers": {
+    "openai": {
+      "base_url": "https://api.openai.com/v1",
+      "api_key_env": "OPENAI_API_KEY",
+      "default_model": "gpt-4o-mini"
+    },
+    "local-llm": {
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "LOCAL_LLM_API_KEY",
+      "default_model": "llama3"
+    }
+  },
+  "aliases": {
+    "default-chat": {
+      "provider": "openai",
+      "model": "gpt-4o-mini"
+    },
+    "fast": {
+      "provider": "openai",
+      "model": "gpt-4o-mini"
+    },
+    "local": {
+      "provider": "local-llm",
+      "model": "llama3"
+    }
+  },
+  "rate_limit": {
+    "requests_per_minute": 20,
+    "tokens_per_minute": 40000
+  },
+  "_auth_warning": "DO NOT deploy with this example hash. Generate real keys: python -c 'import secrets,hashlib; k=secrets.token_urlsafe(32); print(f\"key={k} hash={hashlib.sha256(k.encode()).hexdigest()}\")'",
+  "auth": {
+    "enabled": true,
+    "api_keys": {
+      "dev-key-1": "1255558df586ae279007fffa27ec17451d1507f7ac5442add9ffbc070f9f623b"
+    }
+  },
+  "max_prompt_tokens": 4000,
+  "log_file": "logs/gateway.log",
+  "policy_file": "config/policies/default.yaml",
+  "audit_log_file": "logs/audit.jsonl",
+  "compliance": {
+    "enabled": true,
+    "frameworks": ["SOC2", "HIPAA"],
+    "evidence_output_dir": "evidence/",
+    "retention_days": 2555
+  }
+}

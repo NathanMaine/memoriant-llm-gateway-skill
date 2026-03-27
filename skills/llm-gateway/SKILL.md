@@ -1,17 +1,6 @@
 ---
 name: llm-gateway
 description: Design, configure, and audit a compliance-first LLM gateway. Policy-as-code enforcement (YAML/JSON rules), tamper-evident hash-chain audit trails, PII detection and redaction, rate limiting, token budget enforcement, and compliance evidence export for SOC2/HIPAA/CMMC auditors.
-version: 1.0.0
-author: Nathan Maine
-triggers:
-  - /llm-gateway
-  - "configure llm gateway"
-  - "write gateway policy"
-  - "audit llm usage"
-  - "pii detection policy"
-  - "compliance evidence export"
-  - "rate limit llm"
-  - "token budget enforcement"
 ---
 
 # Governed LLM Gateway Skill
